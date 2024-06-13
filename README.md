@@ -5,21 +5,22 @@ DPI implementation of using Docker setup for an ELK (ElasticSearch--Logstash--Ki
 
 Stand up the current version of the ELK stack with Docker Compose. The aim is primarily to leverage the geodata capabilities of ElasticSearch with the visualization power of Kibana, for integrated maps with dashboards for analysis.
 
-This implementation uses the [current Docker images][elastic-docker] from Elastic:
+This implementation uses the current Docker images from Elastic:
 
 * [Elasticsearch](https://github.com/elastic/elasticsearch/tree/main/distribution/docker)
 * [Logstash](https://github.com/elastic/logstash/tree/main/docker)
 * [Kibana](https://github.com/elastic/kibana/tree/main/src/dev/build/tasks/os_packages/docker_generator)
 
 > [!IMPORTANT]
-> This implementation is currently built on the Basic licence for the ES stack, to avoid startup on the Trial licence.
+> This implementation is currently built on the Basic licence for the ES stack, to avoid startup on a Trial licence.
 > If proceeding, will need to build in licencing parameters in a later version.
 
 ---
 
-## Containerize the following (or run individually in early testing until Container is created)
+## Step through the following actions/commands (Build in Container later)
 
-Set up a Ubuntu VM on GCP and in the SSH:
+1. In GCP, use the "ubu2x-elk8x-template" Instance Template to create an Ubuntu VM.
+2. In SSH run the following commands as root:
 ```sh
 apt update
 apt upgrade
@@ -29,8 +30,17 @@ apt update
 git clone https://github.com/the-epeecurean/dpi-elk.git
 cd dpi-elk
 chmod -v +x setup/entrypoint.sh
-#chown -R $(whoami):root dpi-elk/
 docker-compose up setup
 docker-compose up
 ```
+3. In browser, navigate to the external IP address of the Ubuntu VM at port 5601.
+---
 
+## Next steps
+
+* Generate a map view (& dashboard) at startup.
+* Pre-load StatCan ESRI REST services for cartographic boundaries (e.g., DA, CMA).
+* Pre-load CSV(?) data from geocoder as Geo_point dataset, include in above map.
+* Include user roles and user/password definitions in configuration files for creation at startup.
+
+---
