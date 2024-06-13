@@ -28,7 +28,8 @@ apt-get install -y docker-compose git
 apt update
 git clone https://github.com/the-epeecurean/dpi-elk.git
 cd dpi-elk
-chown -R $(whoami):root dpi-elk/
+chmod -v +x setup/entrypoint.sh
+#chown -R $(whoami):root dpi-elk/
 docker-compose up setup
 docker-compose up
 ```
